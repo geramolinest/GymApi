@@ -128,3 +128,4 @@
 /Users/geramolina/Documents/WorkSpaces/DotNet/GymApi/obj/Debug/net8.0/ref/GymApi.dll
 /Users/geramolina/Documents/WorkSpaces/DotNet/GymApi/bin/Debug/net8.0/AutoMapper.dll
 /Users/geramolina/Documents/WorkSpaces/DotNet/GymApi/bin/Debug/net8.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+/Users/geramolina/Documents/WorkSpaces/DotNet/GymApi/obj/Debug/net8.0/GymApi.sourcelink.json

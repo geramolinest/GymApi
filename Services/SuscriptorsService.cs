@@ -59,10 +59,19 @@ public class SuscriptorsService
     {
         try
         {
+           var suscriptorFromDB = await this._repository.GetSuscriptorByEmail(addSuscriptorDto.Email);
+
+           if(suscriptorFromDB != null) return this._response.BadRequestResponse("A suscriptor with this email already exists");
+           
             var suscriptor = this._mapper.Map<Suscriptor>(addSuscriptorDto);
 
-            suscriptor.RegisterDate = DateTime.Now;
-            suscriptor.Age = (DateTime.UtcNow - addSuscriptorDto.DateBirth).Days / 365;
+            suscriptor.RegisterDate = DateTime.Now.Date;
+
+            DateTime zeroTime = new DateTime(1, 1, 1);
+            
+            TimeSpan age = DateTime.Now.Date - addSuscriptorDto.DateBirth.Date;
+            
+            suscriptor.Age = (zeroTime + age  ).Year - 1;
 
             var suscriptorResult = await this._repository.AddSuscriptor(suscriptor);
 
@@ -91,7 +100,7 @@ public class SuscriptorsService
 
             suscriptorDb.RegisterDate = suscriptorDateRegisterBackup;
 
-            suscriptorDb.Age = (DateTime.UtcNow - suscriptor.DateBirth).Days / 365;
+            suscriptorDb.Age = (DateTime.UtcNow.Date - suscriptor.DateBirth.Date).Days / 365;
 
             var suscriptorResult = await this._repository.UpdateSuscriptor(suscriptorDb);
 
@@ -139,17 +148,19 @@ public class SuscriptorsService
             var suscriptorWithSuscriptionMapped = this._mapper.Map<Suscriptor>(suscription);
 
             suscriptorWithSuscriptionMapped.RegisterDate = DateTime.Now;
-            suscriptorWithSuscriptionMapped.Age = (DateTime.UtcNow - suscription.DateBirth).Days / 365;
+            suscriptorWithSuscriptionMapped.Age = (int) (DateTime.Now.Date - suscription.DateBirth.Date).TotalDays / 365;
             
             var suscripcionEntityMapped = suscriptorWithSuscriptionMapped.Suscription;
             
-            suscripcionEntityMapped.EndDate = suscriptorWithSuscriptionMapped.Suscription.StartDate.AddDays(suscriptionType.DurationInDays);
+            suscripcionEntityMapped.EndDate = suscriptorWithSuscriptionMapped.Suscription.StartDate.Date.AddDays(suscriptionType.DurationInDays);
             
             suscriptorWithSuscriptionMapped.Suscription.IsActive = suscripcionEntityMapped.EndDate.CompareTo(DateTime.Now) >= 0;
             
             var suscriptorAdded = await this._repository.AddSuscriptor(suscriptorWithSuscriptionMapped);
 
-            return this._response.OkResponse($"Suscription renewed, see you at { suscriptorAdded.Suscription.EndDate } again", suscriptorAdded);
+            var suscriptorMapped = this._mapper.Map<SuscriptorGetDto>(suscriptorAdded);
+            
+            return this._response.OkResponse($"Suscription renewed, see you at { suscriptorAdded.Suscription.EndDate } again", suscriptorMapped);
         }
         catch (Exception e)
         {

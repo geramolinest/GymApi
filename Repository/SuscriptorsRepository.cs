@@ -30,7 +30,7 @@ public class SuscriptorsRepository : ISuscriptorRepository
 
     public async Task<Suscriptor> GetSuscriptor(int id)
     {
-        return await this._dbContext.Suscriptors.FirstOrDefaultAsync(x => x.Id == id && x.IsActive);
+        return await this._dbContext.Suscriptors.Include(x => x.Suscription).FirstOrDefaultAsync(x => x.Id == id && x.IsActive);
     }
 
     public async Task<Suscriptor> UpdateSuscriptor(Suscriptor suscriptor)
@@ -43,5 +43,10 @@ public class SuscriptorsRepository : ISuscriptorRepository
     public async Task<List<Suscriptor>> GetSuscriptors()
     {
         return await this._dbContext.Suscriptors.Include(x => x.Suscription).Include(x => x.Suscription.SuscriptionType).ToListAsync();
+    }
+
+    public async Task<Suscriptor> GetSuscriptorByEmail(string email)
+    {
+        return await this._dbContext.Suscriptors.FirstOrDefaultAsync(x => x.Email.ToUpper().Equals(email.ToUpper()));
     }
 }

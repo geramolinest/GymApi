@@ -34,6 +34,8 @@ public class Startup
         services.AddScoped<RoleService>();
         services.AddScoped<SuscriptionsTypesService>();
         services.AddScoped<SuscriptorsService>();
+        services.AddScoped<SuscriptionsService>();
+        services.AddScoped<CheckInService>();
 
         //Automapper
         services.AddAutoMapper(typeof(Startup));
