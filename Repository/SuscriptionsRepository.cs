@@ -31,12 +31,12 @@ public class SuscriptionsRepository : ISuscriptionsRepository
 
     public async Task<Suscription> GetSuscription(int id)
     {
-        return await this._dbContext.Suscriptions.FirstOrDefaultAsync(x => x.Id == id);
+        return await this._dbContext.Suscriptions.Include(x => x.SuscriptionType).FirstOrDefaultAsync(x => x.Id == id);
     }
 
     public async Task<List<Suscription>> GetSuscriptions()
     {
-        return await this._dbContext.Suscriptions.ToListAsync();
+        return await this._dbContext.Suscriptions.Include(x => x.SuscriptionType).ToListAsync();                
     }
 
     public async Task<Suscription> UpdateSuscription(Suscription suscription)

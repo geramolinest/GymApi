@@ -34,7 +34,7 @@ public class CheckInService
 
             var suscriptorGet = this._mapper.Map<SuscriptorGetDto>(suscriptor);
 
-            return this._response.OkResponse($"Welcome {suscriptorGet.Name }, your suscription will expire in {suscriptor.Suscription.EndDate.Date.Subtract(DateTime.Now.Date).TotalDays} days. Expire date: {suscriptor.Suscription.EndDate}", suscriptorGet);
+            return this._response.OkResponse($"Welcome {suscriptorGet.Name }, your suscription will expire in {DateUtils.GetDaysBetweenDates(suscriptor.Suscription.EndDate, DateTime.Now)} days. Expire date: {DateUtils.FormatDate(suscriptor.Suscription.EndDate)}", suscriptorGet);
         }
         catch (Exception e)
         {

@@ -27,6 +27,9 @@ public class Startup
         services.AddScoped<SuscriptionTypeRepository>();
         services.AddScoped<SuscriptorsRepository>();
         services.AddScoped<SuscriptionsRepository>();
+        services.AddScoped<ProductsRepository>();
+        services.AddScoped<SalesRepository>();
+        services.AddScoped<SalesProductRepository>();
 
         //Custom Services
         services.AddSingleton<GenericsResponse>();
@@ -36,6 +39,8 @@ public class Startup
         services.AddScoped<SuscriptorsService>();
         services.AddScoped<SuscriptionsService>();
         services.AddScoped<CheckInService>();
+        services.AddScoped<ProductsService>();
+        services.AddScoped<SalesService>();
 
         //Automapper
         services.AddAutoMapper(typeof(Startup));
@@ -51,7 +56,6 @@ public class Startup
 
         services.AddAuthentication();
         services.AddAuthorization();
-
 
     }
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

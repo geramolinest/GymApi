@@ -49,8 +49,7 @@ public class SuscriptionsTypesService
             return this._response.OkResponse("", suscriptionsMapped);
         }
         catch (Exception e)
-        {
-            
+        {            
             this._logger.LogCritical(e.Message);
             return this._response.InternalServerResponse();
         }
@@ -87,6 +86,7 @@ public class SuscriptionsTypesService
             suscriptionTypeSelect.Name = suscriptionTypeDto.Name != null && suscriptionTypeDto.Name.Length > 0 ? suscriptionTypeDto.Name : suscriptionTypeSelect.Name;
             suscriptionTypeSelect.NormalizedName = suscriptionTypeDto.Name != null && suscriptionTypeDto.Name.Length > 0 ? suscriptionTypeDto.Name.ToUpper() : suscriptionTypeSelect.NormalizedName;
             suscriptionTypeSelect.DurationInDays = suscriptionTypeDto.DurationInDays;
+            suscriptionTypeSelect.Price = suscriptionTypeDto.Price;
 
             var suscriptionType = await this._suscriptionsTypesRepository.UpdateSuscriptionType(suscriptionTypeSelect);
 

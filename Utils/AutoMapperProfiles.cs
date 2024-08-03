@@ -24,5 +24,9 @@ public class AutoMapperProfiles : Profile
         CreateMap<AddSuscriptionDto, Suscription>();
         CreateMap<Suscription, SuscriptionGetDto>();
         CreateMap<SuscriptionAddDto, Suscription>();
+
+        //Product Mappers
+        CreateMap<Product, ProductGetDto>();
+        CreateMap<AddProductDto, Product>();
     }
 }

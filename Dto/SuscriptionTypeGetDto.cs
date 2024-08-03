@@ -6,4 +6,5 @@ public class SuscriptionTypeGetDto
     public string Name { get; set; }
     public string NormalizedName { get; set; }
     public int DurationInDays { get; set; }
+    public decimal Price { get; set; }
 }

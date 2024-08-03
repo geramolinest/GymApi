@@ -5,24 +5,24 @@
 namespace GymApi.Migrations
 {
     /// <inheritdoc />
-    public partial class Enableddisablefieldinsuscriptionfield : Migration
+    public partial class Addingfieldagain : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<bool>(
-                name: "IsActive",
+            migrationBuilder.AddColumn<int>(
+                name: "Test",
                 table: "Suscriptions",
-                type: "tinyint(1)",
+                type: "int",
                 nullable: false,
-                defaultValue: false);
+                defaultValue: 0);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "IsActive",
+                name: "Test",
                 table: "Suscriptions");
         }
     }

@@ -8,7 +8,6 @@ public class Suscription
     public DateTime StartDate { get; set; }
     public DateTime EndDate { get; set; }
     public bool IsActive { get; set; } = true;
-    
     public int SuscriptionTypeId { get; set; }
     public SuscriptionType SuscriptionType { get; set; }
     public Suscriptor Suscriptor { get; set; }

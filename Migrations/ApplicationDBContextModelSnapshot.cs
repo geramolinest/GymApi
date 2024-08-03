@@ -19,6 +19,71 @@ namespace GymApi.Migrations
                 .HasAnnotation("ProductVersion", "8.0.7")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
+            modelBuilder.Entity("GymApi.Product", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("GymApi.Sale", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DateSale")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int?>("SuscriptorId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Total")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SuscriptorId");
+
+                    b.ToTable("Sales");
+                });
+
+            modelBuilder.Entity("GymApi.SaleProduct", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SaleId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("SaleId");
+
+                    b.ToTable("SalesProducts");
+                });
+
             modelBuilder.Entity("GymApi.Suscription", b =>
                 {
                     b.Property<int>("Id")
@@ -62,6 +127,9 @@ namespace GymApi.Migrations
 
                     b.Property<string>("NormalizedName")
                         .HasColumnType("longtext");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
@@ -301,6 +369,30 @@ namespace GymApi.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("GymApi.Sale", b =>
+                {
+                    b.HasOne("GymApi.Suscriptor", "Suscriptor")
+                        .WithMany()
+                        .HasForeignKey("SuscriptorId");
+
+                    b.Navigation("Suscriptor");
+                });
+
+            modelBuilder.Entity("GymApi.SaleProduct", b =>
+                {
+                    b.HasOne("GymApi.Product", null)
+                        .WithMany("SalesProduct")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("GymApi.Sale", null)
+                        .WithMany("SalesProducts")
+                        .HasForeignKey("SaleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("GymApi.Suscription", b =>
                 {
                     b.HasOne("GymApi.SuscriptionType", "SuscriptionType")
@@ -370,6 +462,16 @@ namespace GymApi.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("GymApi.Product", b =>
+                {
+                    b.Navigation("SalesProduct");
+                });
+
+            modelBuilder.Entity("GymApi.Sale", b =>
+                {
+                    b.Navigation("SalesProducts");
                 });
 
             modelBuilder.Entity("GymApi.Suscription", b =>

@@ -9,6 +9,7 @@ public class SuscriptionType
     public string Name { get; set; }
     public string NormalizedName { get; set; }
     public bool Enable { get; set; }
+    public decimal Price { get; set; }
     
     [Required]
     public int DurationInDays { get; set; }

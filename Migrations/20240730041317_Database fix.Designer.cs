@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GymApi.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20240726212926_Relationships fix")]
-    partial class Relationshipsfix
+    [Migration("20240730041317_Database fix")]
+    partial class Databasefix
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -22,6 +22,55 @@ namespace GymApi.Migrations
                 .HasAnnotation("ProductVersion", "8.0.7")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
+            modelBuilder.Entity("GymApi.Product", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("SaleId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SaleId");
+
+                    b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("GymApi.Sale", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DateSale")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int?>("SuscriptorId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Total")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SuscriptorId");
+
+                    b.ToTable("Sales");
+                });
+
             modelBuilder.Entity("GymApi.Suscription", b =>
                 {
                     b.Property<int>("Id")
@@ -30,6 +79,9 @@ namespace GymApi.Migrations
 
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime(6)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime(6)");
@@ -62,6 +114,9 @@ namespace GymApi.Migrations
 
                     b.Property<string>("NormalizedName")
                         .HasColumnType("longtext");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
@@ -301,6 +356,26 @@ namespace GymApi.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("GymApi.Product", b =>
+                {
+                    b.HasOne("GymApi.Sale", "Sale")
+                        .WithMany("Products")
+                        .HasForeignKey("SaleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Sale");
+                });
+
+            modelBuilder.Entity("GymApi.Sale", b =>
+                {
+                    b.HasOne("GymApi.Suscriptor", "Suscriptor")
+                        .WithMany()
+                        .HasForeignKey("SuscriptorId");
+
+                    b.Navigation("Suscriptor");
+                });
+
             modelBuilder.Entity("GymApi.Suscription", b =>
                 {
                     b.HasOne("GymApi.SuscriptionType", "SuscriptionType")
@@ -370,6 +445,11 @@ namespace GymApi.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("GymApi.Sale", b =>
+                {
+                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("GymApi.Suscription", b =>

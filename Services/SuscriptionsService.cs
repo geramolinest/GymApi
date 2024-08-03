@@ -74,7 +74,7 @@ public class SuscriptionsService
 
             suscription.StartDate = DateTime.Now;
 
-            suscription.EndDate = suscription.EndDate.CompareTo(DateTime.Now) < 1 ? DateTime.Now.Date.AddDays(suscriptionType.DurationInDays) : suscription.EndDate.Date.AddDays(suscriptionType.DurationInDays);
+            suscription.EndDate = suscription.EndDate.CompareTo(DateTime.Now) < 1 ? DateUtils.AddDaysToDate(DateTime.Now, suscriptionType.DurationInDays) : DateUtils.AddDaysToDate(suscription.EndDate, suscriptionType.DurationInDays);
 
             await this._suscriptionsRepository.UpdateSuscription(suscription);
 

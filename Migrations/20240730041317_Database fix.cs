@@ -5,7 +5,7 @@
 namespace GymApi.Migrations
 {
     /// <inheritdoc />
-    public partial class Foreignkeyrelationship : Migration
+    public partial class Databasefix : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

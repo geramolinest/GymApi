@@ -1,0 +1,29 @@
+﻿using Microsoft.EntityFrameworkCore.Migrations;
+
+#nullable disable
+
+namespace GymApi.Migrations
+{
+    /// <inheritdoc />
+    public partial class Removingmypropertytestfield : Migration
+    {
+        /// <inheritdoc />
+        protected override void Up(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.DropColumn(
+                name: "MyProperty",
+                table: "Suscriptions");
+        }
+
+        /// <inheritdoc />
+        protected override void Down(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.AddColumn<int>(
+                name: "MyProperty",
+                table: "Suscriptions",
+                type: "int",
+                nullable: false,
+                defaultValue: 0);
+        }
+    }
+}
