@@ -4,12 +4,12 @@ namespace GymApi;
 
 public class ProductsService
 {
-    private readonly ProductsRepository _productsRepository;
+    private readonly IProductsRepository _productsRepository;
     private readonly IMapper _mapper;
     private readonly GenericsResponse _response;
     private readonly ILogger<ProductsService> _logger;
 
-    public ProductsService(ProductsRepository productsRepository, GenericsResponse response, IMapper mapper, ILogger<ProductsService> logger)
+    public ProductsService(IProductsRepository productsRepository, GenericsResponse response, IMapper mapper, ILogger<ProductsService> logger)
     {   
         this._productsRepository = productsRepository;
         this._mapper = mapper;

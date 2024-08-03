@@ -4,15 +4,15 @@ namespace GymApi;
 
 public class SalesService
 {
-    private readonly SalesRepository _salesRepository;
-    private readonly ProductsRepository _productsRepository;
-    private readonly SalesProductRepository _salesProductRepository;
+    private readonly ISalesRepository _salesRepository;
+    private readonly IProductsRepository _productsRepository;
+    private readonly ISaleProductRepository _salesProductRepository;
     private readonly GenericsResponse _response;
     private readonly ILogger<SalesService> _logger;
     private readonly ApplicationDBContext _context;
-    private readonly SuscriptorsRepository _suscriptorsRepository;
+    private readonly ISuscriptorRepository _suscriptorsRepository;
 
-    public SalesService(ApplicationDBContext context, SuscriptorsRepository suscriptorsRepository,SalesRepository salesRepository, ProductsRepository productsRepository, SalesProductRepository salesProductRepository, ILogger<SalesService> logger, GenericsResponse response)
+    public SalesService(ApplicationDBContext context, ISuscriptorRepository suscriptorsRepository, ISalesRepository salesRepository, IProductsRepository productsRepository, ISaleProductRepository salesProductRepository, ILogger<SalesService> logger, GenericsResponse response)
     {
         this._salesRepository = salesRepository;
         this._productsRepository = productsRepository;

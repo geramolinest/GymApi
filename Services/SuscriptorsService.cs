@@ -6,11 +6,11 @@ public class SuscriptorsService
 {
     private readonly IMapper _mapper;
     private readonly GenericsResponse _response;
-    private readonly SuscriptorsRepository _repository;
+    private readonly ISuscriptorRepository _repository;
     private readonly ILogger<SuscriptorsService> _logger;
-    private readonly SuscriptionTypeRepository _suscriptionsTypeRepository;
+    private readonly ISuscriptionsTypesRepository _suscriptionsTypeRepository;
 
-    public SuscriptorsService(SuscriptorsRepository repository, IMapper mapper, GenericsResponse response, ILogger<SuscriptorsService> logger, SuscriptionTypeRepository suscriptionTypeRepository)
+    public SuscriptorsService(ISuscriptorRepository repository, IMapper mapper, GenericsResponse response, ILogger<SuscriptorsService> logger, ISuscriptionsTypesRepository suscriptionTypeRepository)
     {
         this._mapper = mapper;
         this._response = response;
@@ -90,7 +90,7 @@ public class SuscriptorsService
 
             if (suscriptorDb == null) return this._response.BadRequestResponse("Suscriptor does not exists");
             
-            suscriptorDb.Name = suscriptor.Name;
+            suscriptorDb.Name = String.IsNullOrEmpty(suscriptor.Name) ? suscriptorDb.Name : suscriptor.Name;
 
             suscriptorDb.LastName = suscriptor.LastName;
 

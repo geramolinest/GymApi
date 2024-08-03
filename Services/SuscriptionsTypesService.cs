@@ -4,12 +4,12 @@ namespace GymApi;
 
 public class SuscriptionsTypesService
 {
-    private readonly SuscriptionTypeRepository _suscriptionsTypesRepository;
+    private readonly ISuscriptionsTypesRepository _suscriptionsTypesRepository;
     private readonly GenericsResponse _response;
     private readonly ILogger<SuscriptionsTypesService> _logger;
     private readonly IMapper _mapper;
 
-    public SuscriptionsTypesService(SuscriptionTypeRepository suscriptionsTypesRepository, GenericsResponse response, ILogger<SuscriptionsTypesService> logger, IMapper mapper)
+    public SuscriptionsTypesService(ISuscriptionsTypesRepository suscriptionsTypesRepository, GenericsResponse response, ILogger<SuscriptionsTypesService> logger, IMapper mapper)
     {
         this._suscriptionsTypesRepository = suscriptionsTypesRepository;
         this._response = response;
@@ -21,9 +21,7 @@ public class SuscriptionsTypesService
     {
         try
         {
-            var susTypeMapped = this._mapper.Map<SuscriptionType>(suscriptionType);
-            
-            susTypeMapped.Name = susTypeMapped.Name.ToUpper();
+            var susTypeMapped = this._mapper.Map<SuscriptionType>(suscriptionType);    
 
             var suscriptionTypeAdded = await this._suscriptionsTypesRepository.AddSuscriptionType(susTypeMapped);
 
@@ -83,8 +81,8 @@ public class SuscriptionsTypesService
 
             if(suscriptionTypeSelect is null) return this._response.BadRequestResponse("Suscription type does not exists");
 
-            suscriptionTypeSelect.Name = suscriptionTypeDto.Name != null && suscriptionTypeDto.Name.Length > 0 ? suscriptionTypeDto.Name : suscriptionTypeSelect.Name;
-            suscriptionTypeSelect.NormalizedName = suscriptionTypeDto.Name != null && suscriptionTypeDto.Name.Length > 0 ? suscriptionTypeDto.Name.ToUpper() : suscriptionTypeSelect.NormalizedName;
+            suscriptionTypeSelect.Name = String.IsNullOrEmpty(suscriptionTypeDto.Name) ? suscriptionTypeDto.Name : suscriptionTypeSelect.Name;
+            suscriptionTypeSelect.NormalizedName = String.IsNullOrEmpty(suscriptionTypeDto.Name) ? suscriptionTypeDto.Name.ToUpper() : suscriptionTypeSelect.NormalizedName;
             suscriptionTypeSelect.DurationInDays = suscriptionTypeDto.DurationInDays;
             suscriptionTypeSelect.Price = suscriptionTypeDto.Price;
 

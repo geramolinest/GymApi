@@ -7,8 +7,10 @@ public class AutoMapperProfiles : Profile
     public AutoMapperProfiles()
     {
         //Suscription Type Mappers
-        CreateMap<AddSuscriptionTypeDto, SuscriptionType>();
-        CreateMap<SuscriptionType, SuscriptionTypeGetDto>();
+        CreateMap<AddSuscriptionTypeDto, SuscriptionType>()
+                .ForMember( to => to.NormalizedName, opt => opt.MapFrom(src => src.Name.ToUpper()));                
+        CreateMap<SuscriptionType, SuscriptionTypeGetDto>()
+                .ForMember( s => s.Name, opt => opt.MapFrom( src => StringCustomUtils.Capitalize(src.Name)));
 
         //Suscriptors Mappers
         CreateMap<AddSuscriptorDto, Suscriptor>();

@@ -1,6 +1,6 @@
 ﻿namespace GymApi;
 
-public class SalesProductRepository
+public class SalesProductRepository : ISaleProductRepository
 {
     private readonly ApplicationDBContext _context;
 
@@ -17,4 +17,5 @@ public class SalesProductRepository
         
         return saleProduct;
     }
+
 }

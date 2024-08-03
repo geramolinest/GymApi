@@ -24,12 +24,12 @@ public class Startup
         services.AddSwaggerGen();
         
         //Repositories
-        services.AddScoped<SuscriptionTypeRepository>();
-        services.AddScoped<SuscriptorsRepository>();
-        services.AddScoped<SuscriptionsRepository>();
-        services.AddScoped<ProductsRepository>();
-        services.AddScoped<SalesRepository>();
-        services.AddScoped<SalesProductRepository>();
+        services.AddScoped<ISuscriptionsTypesRepository, SuscriptionTypeRepository>();
+        services.AddScoped<ISuscriptorRepository, SuscriptorsRepository>();
+        services.AddScoped<ISuscriptionsRepository, SuscriptionsRepository>();
+        services.AddScoped<IProductsRepository, ProductsRepository>();
+        services.AddScoped<ISalesRepository, SalesRepository>();
+        services.AddScoped<ISaleProductRepository, SalesProductRepository>();
 
         //Custom Services
         services.AddSingleton<GenericsResponse>();

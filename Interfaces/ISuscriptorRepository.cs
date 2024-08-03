@@ -10,4 +10,5 @@ public interface ISuscriptorRepository
     public Task<Suscriptor> GetSuscriptor(int id);
     
     public Task<List<Suscriptor>> GetSuscriptors();
+    public Task<Suscriptor> GetSuscriptorByEmail(string email);
 }

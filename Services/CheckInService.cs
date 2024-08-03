@@ -4,12 +4,12 @@ namespace GymApi;
 
 public class CheckInService
 {
-    private readonly SuscriptorsRepository _suscriptorsRepository;
+    private readonly ISuscriptorRepository _suscriptorsRepository;
     private readonly GenericsResponse _response;
     private readonly ILogger<CheckInService> _logger;
     private readonly IMapper _mapper;
 
-    public CheckInService(SuscriptorsRepository suscriptorsRepository, IMapper mapper,GenericsResponse response, ILogger<CheckInService> logger)
+    public CheckInService(ISuscriptorRepository suscriptorsRepository, IMapper mapper,GenericsResponse response, ILogger<CheckInService> logger)
     {
         this._suscriptorsRepository = suscriptorsRepository;
         this._response = response;

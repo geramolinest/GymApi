@@ -4,14 +4,14 @@ namespace GymApi;
 
 public class SuscriptionsService
 {
-    private readonly SuscriptionsRepository _suscriptionsRepository;
+    private readonly ISuscriptionsRepository _suscriptionsRepository;
     private readonly ILogger<SuscriptionsService> _logger;
     private readonly GenericsResponse _response;
     private readonly IMapper _mapper;
-    private readonly SuscriptionTypeRepository _suscriptionsTypeRepository;
-    private readonly SuscriptorsRepository _suscriptorsRepository;
+    private readonly ISuscriptionsTypesRepository _suscriptionsTypeRepository;
+    private readonly ISuscriptorRepository _suscriptorsRepository;
 
-    public SuscriptionsService(SuscriptionsRepository suscriptionsRepository, SuscriptorsRepository suscriptorsRepository,SuscriptionTypeRepository suscriptionTypeRepository,IMapper mapper,GenericsResponse response, ILogger<SuscriptionsService> logger)
+    public SuscriptionsService(ISuscriptionsRepository suscriptionsRepository, ISuscriptorRepository suscriptorsRepository,ISuscriptionsTypesRepository suscriptionTypeRepository,IMapper mapper,GenericsResponse response, ILogger<SuscriptionsService> logger)
     {
         this._suscriptionsRepository = suscriptionsRepository;
         this._logger = logger;

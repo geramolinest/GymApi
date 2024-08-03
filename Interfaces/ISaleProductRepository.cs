@@ -4,5 +4,5 @@ namespace GymApi;
 
 public interface ISaleProductRepository
 {
-    Task<SaleProduct> AddSaleProduct(int productId, int saleId);
+    Task<SaleProduct> AddSaleProduct(SaleProduct saleProduct);
 }
